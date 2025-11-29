@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
     return "Hello world"
 
-URL="https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid={}&format=json"
+URL="https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=2635&format=json" 
 
 def format_output(js):
     #import pdb; pdb.set_trace()
@@ -19,9 +19,9 @@ def format_output(js):
         result += bus_route + " " + arrival_time + "<br>"
     return result
 
-@app.route('/bus/<stopid>')
-def bus_get(stopid):
-    resp = requests.get(URL.format(stopid))
+@app.route('/bus')
+def bus_get():
+    resp = requests.get(URL)
     if resp.status_code == 200:
         js = json.loads(resp.content)
         if js["errorcode"] == "0":
